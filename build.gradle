@@ -1,0 +1,43 @@
+plugins {
+    id 'groovy'
+}
+
+group = 'com.acelerazg'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.groovy:groovy:4.0.6'
+    implementation 'org.postgresql:postgresql:42.7.8'
+    implementation 'org.jsoup:jsoup:1.21.2'
+    implementation 'commons-io:commons-io:2.20.0'
+    implementation 'com.sun.mail:javax.mail:1.6.2'
+
+    testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-4.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-engine'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation "net.bytebuddy:byte-buddy:1.17.7"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('run', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.acelerazg.Main'
+}
+
+tasks.register('migrate', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.acelerazg.persistency.Migrate'
+}
+
+tasks.register('emailList', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.acelerazg.persistency.DatabaseCLI'
+    standardInput = System.in
+}
