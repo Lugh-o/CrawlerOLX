@@ -42,7 +42,7 @@ class Crawler {
             return
         }
         String title = listingDocument.select("#description-title span.ad__sc-1l883pa-2")[0].text()
-        if (title =~ "(?i)(?<=^|\\n).*${query}.*") {
+        if (title =~ "(?i).*${query}.*") {
             Elements addressElements = listingDocument.select("#location span")
             String address = addressElements[1].text() + ", " + addressElements[2].text()
             double price = listingDocument.select("#price-box-container span.olx-text--title-large")[0].text()
